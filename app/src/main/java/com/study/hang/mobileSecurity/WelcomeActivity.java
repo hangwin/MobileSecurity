@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.study.hang.util.SpUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,7 @@ public class WelcomeActivity extends Activity {
             viewList.add(view);
         }
         viewPager.setAdapter(new myPagerAdapter());
+        SpUtil.setBoolean(this, "isFirstOpen", true);
 
 
     }
