@@ -14,6 +14,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.animation.AlphaAnimation;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ public class SplashActivity extends Activity {
     private static final int ENTER_HOME = 3;
     private static final int SHOW_UPDATE = 4;
     private TextView tv_version;
-    private TextView tv_update;
+    private ProgressBar update_progress;
     private String lastestVersion;
     private String apkUrl;
     private String description;
@@ -89,11 +91,13 @@ public class SplashActivity extends Activity {
         builder.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //dialog.dismiss();
                 update();
-
-                //enterHome();
-
+            }
+        });
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                enterHome();
             }
         });
         builder.show();
@@ -114,8 +118,10 @@ public class SplashActivity extends Activity {
                 @Override
                 public void onLoading(long count, long current) {
                     super.onLoading(count, current);
-                    tv_update.setVisibility(TextView.VISIBLE);
-                    tv_update.setText(count/current+"%");
+                    update_progress.setVisibility(ProgressBar.VISIBLE);
+                    update_progress.setMax((int) count);
+                    update_progress.setProgress((int) current);
+
                 }
 
                 @Override
@@ -133,8 +139,8 @@ public class SplashActivity extends Activity {
 
     private void install(File file) {
         Intent intent=new Intent();
-        intent.setAction("android.intent.aciton.VIEW");
-       // intent.addCategory("android.intent.category.DEFAULT");
+        intent.setAction("android.intent.action.VIEW");
+       //intent.addCategory("android.intent.category.DEFAULT");
         intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         startActivity(intent);
     }
@@ -150,8 +156,9 @@ public class SplashActivity extends Activity {
             finish();
         }else {
             setContentView(R.layout.splash_layout);
+
             tv_version= (TextView) findViewById(R.id.tv_version);
-            tv_update= (TextView) findViewById(R.id.tv_progress);
+            update_progress= (ProgressBar) findViewById(R.id.update_progressbar);
             if(!TextUtils.isEmpty(getVersion()))
                 tv_version.setText("版本："+getVersion());
             new Thread(new Runnable() {
@@ -162,9 +169,6 @@ public class SplashActivity extends Activity {
 
                 }
             }).start();
-
-
-
 
          }
     }

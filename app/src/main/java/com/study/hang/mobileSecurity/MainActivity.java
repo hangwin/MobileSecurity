@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.AlphaAnimation;
 
 public class MainActivity extends Activity {
 
@@ -16,7 +17,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
-
+        AlphaAnimation alphaAnimation=new AlphaAnimation(0.2f,1.0f);
+        alphaAnimation.setDuration(2000);
+        findViewById(R.id.home).setAnimation(alphaAnimation);
     }
 
 

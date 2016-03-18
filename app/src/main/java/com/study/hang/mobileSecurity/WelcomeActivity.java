@@ -44,6 +44,7 @@ public class WelcomeActivity extends Activity {
             viewList.add(view);
         }
         viewPager.setAdapter(new myPagerAdapter());
+        viewPager.setPageTransformer(true,new ZoomOutPageTransformer());
         SpUtil.setBoolean(this, "isFirstOpen", true);
 
 
