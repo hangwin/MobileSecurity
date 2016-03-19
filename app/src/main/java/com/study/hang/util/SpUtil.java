@@ -15,12 +15,12 @@ public class SpUtil {
      * @return
      */
     public static  Boolean getBoolean(Context context,String key) {
-        SharedPreferences sp=context.getSharedPreferences(pathName,Context.MODE_PRIVATE);
+        SharedPreferences sp=context.getSharedPreferences(pathName,Context.MODE_MULTI_PROCESS);
         Boolean result=sp.getBoolean(key,false);
         return result;
     }
     public static void setBoolean(Context context,String key,Boolean val) {
-        SharedPreferences sp=context.getSharedPreferences(pathName,Context.MODE_PRIVATE);
+        SharedPreferences sp=context.getSharedPreferences(pathName,Context.MODE_MULTI_PROCESS);
         SharedPreferences.Editor editor=sp.edit();
         editor.putBoolean(key,val);
         editor.commit();
