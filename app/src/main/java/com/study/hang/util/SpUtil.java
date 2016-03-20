@@ -14,9 +14,10 @@ public class SpUtil {
      * 验证是否第一次启动app
      * @return
      */
-    public static  Boolean getBoolean(Context context,String key) {
+
+    public static  Boolean getBoolean(Context context,String key,boolean defVal) {
         SharedPreferences sp=context.getSharedPreferences(pathName,Context.MODE_MULTI_PROCESS);
-        Boolean result=sp.getBoolean(key,false);
+        Boolean result=sp.getBoolean(key,defVal);
         return result;
     }
     public static void setBoolean(Context context,String key,Boolean val) {
@@ -24,5 +25,17 @@ public class SpUtil {
         SharedPreferences.Editor editor=sp.edit();
         editor.putBoolean(key,val);
         editor.commit();
+    }
+    public static boolean setString(Context context,String key,String val) {
+        SharedPreferences sp=context.getSharedPreferences(pathName,Context.MODE_MULTI_PROCESS);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString(key, val);
+        boolean res=editor.commit();
+        return res;
+    }
+    public static String getString(Context context,String key) {
+        SharedPreferences sp=context.getSharedPreferences(pathName,Context.MODE_MULTI_PROCESS);
+        String str=sp.getString(key,null);
+        return str;
     }
 }

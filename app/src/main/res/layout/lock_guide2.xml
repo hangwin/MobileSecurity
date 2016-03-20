@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/title"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#36e5ff"
+        android:textSize="22sp"
+        android:textColor="#ffffff"
+        android:text="2、绑定手机卡" />
+    <TextView
+        android:text="绑定SIM卡后："
+        android:layout_marginTop="25dp"
+        android:paddingLeft="10dp"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text=" 若下次重启手机发现SIM卡发生了变化"
+        android:drawableLeft="@drawable/tag"
+        android:paddingTop="15dp"
+        android:paddingLeft="10dp"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text=" 系统将自动发送报警短信"
+        android:drawableLeft="@drawable/tag"
+        android:textSize="18sp"
+        android:paddingTop="15dp"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+         <ImageView
+             android:layout_centerInParent="true"
+             android:src="@drawable/phone"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+         <TextView
+             android:id="@+id/tv_next"
+             android:padding="15dp"
+             android:text="下一页"
+             android:onClick="next"
+             android:textSize="22sp"
+             android:textColor="#000066"
+             android:layout_alignParentBottom="true"
+             android:layout_alignParentRight="true"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+         <TextView
+             android:id="@+id/tv_pre"
+             android:padding="15dp"
+             android:text="上一页"
+             android:onClick="pre"
+             android:textSize="22sp"
+             android:textColor="#000066"
+             android:layout_alignParentBottom="true"
+             android:layout_alignParentLeft="true"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+     </RelativeLayout>
+</LinearLayout>

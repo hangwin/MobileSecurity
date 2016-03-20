@@ -30,6 +30,21 @@
         <activity android:name=".SettingActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             />
+        <activity android:name=".LockActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            />
+        <activity android:name=".Lock_guide1Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            />
+        <activity android:name=".Lock_guide2Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            />
+        <activity android:name=".Lock_guide3Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            />
+        <activity android:name=".Lock_guide4Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            />
     </application>
 
 </manifest>

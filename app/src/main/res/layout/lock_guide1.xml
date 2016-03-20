@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/title"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#36e5ff"
+        android:textSize="22sp"
+        android:textColor="#ffffff"
+        android:text="1、欢迎进入手机防盗设置" />
+    <TextView
+        android:text="手机卫士包括以下功能："
+        android:layout_marginTop="25dp"
+        android:paddingLeft="10dp"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text=" sim卡变更报警"
+        android:drawableLeft="@drawable/tag"
+        android:paddingTop="15dp"
+        android:paddingLeft="10dp"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text=" GPS追踪"
+        android:drawableLeft="@drawable/tag"
+        android:textSize="18sp"
+        android:paddingTop="15dp"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text=" 远程数据销毁"
+        android:drawableLeft="@drawable/tag"
+        android:textSize="18sp"
+        android:paddingTop="15dp"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text=" 远程锁屏"
+        android:drawableLeft="@drawable/tag"
+        android:textSize="18sp"
+        android:paddingTop="15dp"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+         <ImageView
+             android:layout_centerInParent="true"
+             android:src="@drawable/locked"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+         <TextView
+             android:id="@+id/tv_next"
+             android:padding="15dp"
+             android:text="下一页"
+             android:onClick="next"
+             android:textSize="22sp"
+             android:textColor="#000066"
+             android:layout_alignParentBottom="true"
+             android:layout_alignParentRight="true"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+     </RelativeLayout>
+</LinearLayout>

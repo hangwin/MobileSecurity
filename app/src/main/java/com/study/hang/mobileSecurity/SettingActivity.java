@@ -20,7 +20,7 @@ public class SettingActivity  extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_center);
         settingItem= (SettingItem) findViewById(R.id.update_item);
-        boolean isupdate=SpUtil.getBoolean(this,"isUpdate");
+        boolean isupdate=SpUtil.getBoolean(this,"isUpdate",true);
 
         System.out.println("outside--------->："+isupdate);
         settingItem.setIsChecked(isupdate);

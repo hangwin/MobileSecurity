@@ -150,13 +150,13 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //如果是第一次启动，则进入进到页面
-        if (!SpUtil.getBoolean(this, "isFirstOpen")) {
+        if (!SpUtil.getBoolean(this, "isFirstOpen",false)) {
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
             finish();
         } else {
             setContentView(R.layout.splash_layout);
-            boolean isUpdate = SpUtil.getBoolean(this,"isUpdate");
+            boolean isUpdate = SpUtil.getBoolean(this,"isUpdate",true);
 
             tv_version = (TextView) findViewById(R.id.tv_version);
             update_progress = (ProgressBar) findViewById(R.id.update_progressbar);
