@@ -54,6 +54,7 @@ public class Lock_guide1Activity extends Activity{
                     Intent intent=new Intent(Lock_guide1Activity.this,Lock_guide2Activity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.lock_anim_pre, R.anim.lock_anim_next);
+                    finish();
 
                 }
                 return false;
@@ -65,6 +66,7 @@ public class Lock_guide1Activity extends Activity{
         Intent intent=new Intent(this,Lock_guide2Activity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.lock_anim_pre, R.anim.lock_anim_next);
+        finish();
     }
 
     @Override

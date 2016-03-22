@@ -51,6 +51,7 @@ public class SettingItem extends RelativeLayout {
     public void setDesc(String str) {
         tv_desc.setText(str);
     }
+    public void setMian(String str) { tv_isupdate.setText(str);}
     public void setIsChecked(boolean isChecked) {
         tg_btn.setChecked(isChecked);
 

@@ -52,10 +52,12 @@ public class Lock_guide3Activity extends Activity{
                     Intent intent=new Intent(Lock_guide3Activity.this,Lock_guide2Activity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.lock_anim_next2, R.anim.lock_anim_pre2);
+                    finish();
                 }else if(e1.getRawX()-e2.getRawX()>100) {
                     Intent intent=new Intent(Lock_guide3Activity.this,Lock_guide4Activity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.lock_anim_pre, R.anim.lock_anim_next);
+                    finish();
                 }
                 return false;
             }
@@ -66,12 +68,14 @@ public class Lock_guide3Activity extends Activity{
     public void next(View view) {
         Intent intent=new Intent(this,Lock_guide4Activity.class);
         startActivity(intent);
-        overridePendingTransition(R.anim.lock_anim_pre,R.anim.lock_anim_next);
+        overridePendingTransition(R.anim.lock_anim_pre, R.anim.lock_anim_next);
+        finish();
     }
     public void pre(View view) {
         Intent intent=new Intent(this,Lock_guide2Activity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.lock_anim_next2,R.anim.lock_anim_pre2);
+        finish();
     }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
