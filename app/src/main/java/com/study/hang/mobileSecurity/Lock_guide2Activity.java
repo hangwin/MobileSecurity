@@ -9,6 +9,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.study.hang.com.study.hang.ui.SettingItem;
 import com.study.hang.util.SpUtil;
@@ -28,8 +29,9 @@ public class Lock_guide2Activity extends Activity{
         settingItem= (SettingItem) findViewById(R.id.bind_simcard);
         telephonyManager= (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         settingItem.setMian("是否绑定SIM卡");
-        String simNum=SpUtil.getString(this,"SimSerialNum");
-        if (TextUtils.isEmpty(simNum)) {
+       // String simNum=SpUtil.getString(this,"SimSerialNum");
+        boolean isBindSim=SpUtil.getBoolean(this,"isBindSIM",false);
+        if (!isBindSim) {
             settingItem.setDesc("没有绑定SIM卡");
             settingItem.setIsChecked(false);
         }else {
@@ -41,13 +43,13 @@ public class Lock_guide2Activity extends Activity{
         settingItem.tg_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SpUtil.setBoolean(Lock_guide2Activity.this,"isBindSIM",isChecked);
-                if(isChecked) {
-                    String num=telephonyManager.getSimSerialNumber();//得到SIM卡的序列号
-                    SpUtil.setString(Lock_guide2Activity.this,"SimSerialNum",num);
+                SpUtil.setBoolean(Lock_guide2Activity.this, "isBindSIM", isChecked);
+                if (isChecked) {
+                    String num = telephonyManager.getSimSerialNumber();//得到SIM卡的序列号
+                    SpUtil.setString(Lock_guide2Activity.this, "SimSerialNum", num);
                     settingItem.setDesc("已绑定SIM卡");
-                }else {
-                    SpUtil.setString(Lock_guide2Activity.this,"SimSerialNum",null);
+                } else {
+                    SpUtil.setString(Lock_guide2Activity.this, "SimSerialNum", null);
                     settingItem.setDesc("没有绑定SIM卡");
                 }
             }
@@ -87,10 +89,16 @@ public class Lock_guide2Activity extends Activity{
                     overridePendingTransition(R.anim.lock_anim_next2, R.anim.lock_anim_pre2);
                     finish();
                 }else if(e1.getRawX()-e2.getRawX()>100) {
-                    Intent intent=new Intent(Lock_guide2Activity.this,Lock_guide3Activity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.lock_anim_pre, R.anim.lock_anim_next);
-                    finish();
+                    boolean isbindSim=SpUtil.getBoolean(Lock_guide2Activity.this,"isBindSIM",false);
+                    if(!isbindSim) {
+                        Toast.makeText(Lock_guide2Activity.this, "请先绑定SIM卡再进行下一步", Toast.LENGTH_SHORT).show();
+
+                    }else {
+                        Intent intent = new Intent(Lock_guide2Activity.this, Lock_guide3Activity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.lock_anim_pre, R.anim.lock_anim_next);
+                        finish();
+                    }
                 }
                 return false;
             }
@@ -99,10 +107,16 @@ public class Lock_guide2Activity extends Activity{
 
     }
     public void next(View view) {
-        Intent intent=new Intent(this,Lock_guide3Activity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.lock_anim_pre, R.anim.lock_anim_next);
-        finish();
+        boolean isbindSim=SpUtil.getBoolean(this,"isBindSIM",false);
+        if(!isbindSim) {
+            Toast.makeText(this, "请先绑定SIM卡再进行下一步", Toast.LENGTH_SHORT).show();
+
+        } else {
+            Intent intent = new Intent(this, Lock_guide3Activity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.lock_anim_pre, R.anim.lock_anim_next);
+            finish();
+        }
     }
     public void pre(View view) {
         Intent intent=new Intent(this,Lock_guide1Activity.class);

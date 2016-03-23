@@ -13,14 +13,17 @@ import com.study.hang.util.SpUtil;
  */
 public class MyReceiver extends BroadcastReceiver {
     private TelephonyManager tm;
+
     @Override
     public void onReceive(Context context, Intent intent) {
-           System.out.println("开机啦-------------》");
-           String simNum= SpUtil.getString(context,"SimSerialNum");
-           tm= (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-           String newNum=tm.getSimSerialNumber();
-           if (!newNum.equals(simNum)) {
-               Toast.makeText(context,"SIM卡变更啦",Toast.LENGTH_SHORT);
-           }
+        System.out.println("开机啦-------------》");
+        Toast.makeText(context,"开机成功",Toast.LENGTH_LONG).show();
+
+        String simNum = SpUtil.getString(context, "SimSerialNum");
+        tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String newNum = tm.getSimSerialNumber()+"aaaaaa";
+        if (!newNum.equals(simNum + "aaa")) {
+            Toast.makeText(context, "SIM卡变更啦", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    >
+ <TextView
+     android:id="@+id/tv_name"
+     android:text="张三"
+     android:textSize="20sp"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/number"
+        android:text="12322344556"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        />
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:src="@drawable/call"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+
+</RelativeLayout>
