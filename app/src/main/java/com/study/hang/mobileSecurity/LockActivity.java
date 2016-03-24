@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.study.hang.com.study.hang.ui.SettingItem;
 import com.study.hang.util.SpUtil;
 
 /**
@@ -14,6 +16,7 @@ import com.study.hang.util.SpUtil;
  */
 public class LockActivity extends Activity{
     private TextView tv_enterGuide;
+    private SettingItem setting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +24,29 @@ public class LockActivity extends Activity{
         if (hasset) {  //如果已经进入过设置向导，则直接进入防盗页面
             setContentView(R.layout.lock_page);
             tv_enterGuide= (TextView) findViewById(R.id.tv_enterGuide);
+            setting= (SettingItem) findViewById(R.id.setting_lock);
+            boolean setting_lock=SpUtil.getBoolean(this,"setting_lock",false);
+            setting.setMian("是否开启手机防盗");
+            if(setting_lock) {
+                setting.setIsChecked(true);
+                setting.setDesc("已开启手机防盗");
+            }else {
+                setting.setIsChecked(false);
+                setting.setDesc("已关闭手机防盗");
+            }
+            setting.tg_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    SpUtil.setBoolean(LockActivity.this,"setting_lock",isChecked);
+                    if(isChecked) {
+                        setting.setIsChecked(true);
+                        setting.setDesc("已开启手机防盗");
+                    }else {
+                        setting.setIsChecked(false);
+                        setting.setDesc("已关闭手机防盗");
+                    }
+                }
+            });
             tv_enterGuide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

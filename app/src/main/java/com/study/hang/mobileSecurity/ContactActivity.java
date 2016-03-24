@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -32,16 +33,13 @@ public class ContactActivity extends Activity {
         listView= (ListView) findViewById(R.id.lv_contact);
         queryData();
         listView.setAdapter(new mAdapter());
-        listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent();
-                intent.putExtra("number",list.get(position).getNumber());
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent data=new Intent();
+                data.putExtra("number",list.get(position).getNumber());
+                setResult(1,data);
                 finish();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });

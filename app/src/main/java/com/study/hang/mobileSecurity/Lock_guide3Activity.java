@@ -120,7 +120,7 @@ public class Lock_guide3Activity extends Activity{
         super.onActivityResult(requestCode, resultCode, data);
         String number=data.getStringExtra("number");
         if(!TextUtils.isEmpty(number)) {
-            if(requestCode==0) {
+            if(requestCode==0&&resultCode==1) {
                 et_number.setText(number);
                 SpUtil.setString(Lock_guide3Activity.this,"saveNumber",number);
             }
