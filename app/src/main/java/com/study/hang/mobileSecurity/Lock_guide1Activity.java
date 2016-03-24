@@ -19,6 +19,7 @@ public class Lock_guide1Activity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lock_guide1);
+
         gestureDetector=new GestureDetector(new GestureDetector.OnGestureListener() {
             @Override
             public boolean onDown(MotionEvent e) {

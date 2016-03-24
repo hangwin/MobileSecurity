@@ -136,6 +136,9 @@ public class MainActivity extends Activity {
 
     }
 
+
+
+
     //进入手机防盗功能
     private void enterLock() {
           Intent intent=new Intent(this,LockActivity.class);

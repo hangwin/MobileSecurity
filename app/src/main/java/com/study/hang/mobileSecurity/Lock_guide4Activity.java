@@ -35,11 +35,11 @@ public class Lock_guide4Activity extends Activity{
         setting.tg_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SpUtil.setBoolean(Lock_guide4Activity.this,"setting_lock",isChecked);
-                if(isChecked) {
+                SpUtil.setBoolean(Lock_guide4Activity.this, "setting_lock", isChecked);
+                if (isChecked) {
                     setting.setIsChecked(true);
                     setting.setDesc("已开启手机防盗");
-                }else {
+                } else {
                     setting.setIsChecked(false);
                     setting.setDesc("已关闭手机防盗");
                 }
@@ -80,7 +80,13 @@ public class Lock_guide4Activity extends Activity{
                     overridePendingTransition(R.anim.lock_anim_next2, R.anim.lock_anim_pre2);
                     finish();
                 }else if(e1.getRawX()-e2.getRawX()>100) {
-                  ;
+                    boolean hasset=SpUtil.getBoolean(Lock_guide4Activity.this,"hasSetLock",false);
+                    if(!hasset) {
+                        SpUtil.setBoolean(Lock_guide4Activity.this,"hasSetLock",true);
+                        Intent intent=new Intent(Lock_guide4Activity.this,LockActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.lock_anim_pre, R.anim.lock_anim_next);
+                    }
                     finish();
                 }
                 return false;
@@ -96,7 +102,13 @@ public class Lock_guide4Activity extends Activity{
         finish();
     }
     public void next(View view) {
-
+        boolean hasset=SpUtil.getBoolean(this,"hasSetLock",false);
+        if(!hasset) {
+            SpUtil.setBoolean(this,"hasSetLock",true);
+            Intent intent=new Intent(this,LockActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.lock_anim_pre, R.anim.lock_anim_next);
+        }
         finish();
     }
     @Override

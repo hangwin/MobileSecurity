@@ -56,7 +56,7 @@ public class LockActivity extends Activity{
             });
 
         }else {         //如果没有进入过向导页面，则进入向导页面
-            SpUtil.setBoolean(this,"hasSetLock",true);
+
             Intent intent=new Intent(this,Lock_guide1Activity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.lock_anim_pre, R.anim.lock_anim_next);
