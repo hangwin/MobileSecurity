@@ -1,4 +1,4 @@
-package com.study.hang.mobileSecurity;
+package com.study.hang.mobileSecurity.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.study.hang.mobileSecurity.R;
 import com.study.hang.ui.SettingItem;
 import com.study.hang.util.SpUtil;
 

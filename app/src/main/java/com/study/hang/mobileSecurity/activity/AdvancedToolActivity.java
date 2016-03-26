@@ -1,10 +1,12 @@
-package com.study.hang.mobileSecurity;
+package com.study.hang.mobileSecurity.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.study.hang.mobileSecurity.R;
 
 /**
  * Created by hang on 16/3/26.

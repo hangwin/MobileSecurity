@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.study.hang.mobileSecurity.MainActivity"
+    tools:context=".activity.MainActivity"
     tools:showIn="@layout/activity_main"
     android:gravity="center"
     android:layout_gravity="center"

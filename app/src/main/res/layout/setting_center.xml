@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
 
@@ -21,15 +20,34 @@
         android:id="@+id/update_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title"
         >
 
     </com.study.hang.ui.SettingItem>
 
+
     <TextView
         android:background="#CCCCCC"
-        android:layout_below="@id/update_item"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <com.study.hang.ui.SettingItem
+        android:id="@+id/showaddress_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </com.study.hang.ui.SettingItem>
+    <TextView
+        android:background="#CCCCCC"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <com.study.hang.ui.ClickItem
+        android:id="@+id/style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.study.hang.ui.ClickItem>
+    <TextView
+        android:background="#CCCCCC"
         android:layout_width="match_parent"
         android:layout_height="1dp" />
 
-</RelativeLayout>
+</LinearLayout>

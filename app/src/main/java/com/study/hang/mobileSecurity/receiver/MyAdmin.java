@@ -1,4 +1,4 @@
-package com.study.hang.mobileSecurity;
+package com.study.hang.mobileSecurity.receiver;
 
 import android.app.admin.DeviceAdminReceiver;
 

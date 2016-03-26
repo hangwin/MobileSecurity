@@ -1,11 +1,9 @@
-package com.study.hang.mobileSecurity;
+package com.study.hang.mobileSecurity.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -14,12 +12,11 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.animation.AlphaAnimation;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.study.hang.mobileSecurity.R;
 import com.study.hang.util.SpUtil;
 
 import net.tsz.afinal.FinalHttp;
@@ -30,6 +27,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -149,8 +147,9 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //如果是第一次启动，则进入进到页面
+        //如果是第一次启动，则进入导航页面
         if (!SpUtil.getBoolean(this, "isFirstOpen",false)) {
+            copydb();
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
             finish();
@@ -179,6 +178,25 @@ public class SplashActivity extends Activity {
                 },2000);
             }
 
+
+        }
+    }
+
+    private void copydb() {
+        try {
+            InputStream is=getAssets().open("address.db");
+            File file=new File(getFilesDir(),"address.db");
+            FileOutputStream fos=new FileOutputStream(file);
+            int length=0;
+            byte[] bytes=new byte[1024];
+            while ((length=is.read(bytes))!=-1) {
+                fos.write(bytes,0,length);
+            }
+            fos.close();
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
 
         }
     }

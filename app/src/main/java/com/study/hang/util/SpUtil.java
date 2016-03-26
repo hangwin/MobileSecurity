@@ -34,8 +34,19 @@ public class SpUtil {
         return res;
     }
     public static String getString(Context context,String key) {
-        SharedPreferences sp=context.getSharedPreferences(pathName,Context.MODE_MULTI_PROCESS);
-        String str=sp.getString(key,null);
+        SharedPreferences sp=context.getSharedPreferences(pathName, Context.MODE_MULTI_PROCESS);
+        String str=sp.getString(key, null);
         return str;
+    }
+    public static int getInt(Context context,String key) {
+        SharedPreferences sp=context.getSharedPreferences(pathName, Context.MODE_MULTI_PROCESS);
+        int str=sp.getInt(key, 0);
+        return str;
+    }
+    public static void setInt(Context context,String key,int value) {
+        SharedPreferences sp=context.getSharedPreferences(pathName,Context.MODE_MULTI_PROCESS);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putInt(key, value);
+        editor.commit();
     }
 }

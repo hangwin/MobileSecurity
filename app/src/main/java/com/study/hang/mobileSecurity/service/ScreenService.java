@@ -1,4 +1,4 @@
-package com.study.hang.mobileSecurity;
+package com.study.hang.mobileSecurity.service;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -9,7 +9,6 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;

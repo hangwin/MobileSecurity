@@ -1,4 +1,4 @@
-package com.study.hang.mobileSecurity;
+package com.study.hang.ui;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

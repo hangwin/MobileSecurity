@@ -1,4 +1,4 @@
-package com.study.hang.mobileSecurity;
+package com.study.hang.mobileSecurity.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.study.hang.mobileSecurity.R;
 import com.study.hang.util.SpUtil;
 
 /**

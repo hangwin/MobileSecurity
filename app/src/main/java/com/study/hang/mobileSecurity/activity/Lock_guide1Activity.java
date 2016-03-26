@@ -1,4 +1,4 @@
-package com.study.hang.mobileSecurity;
+package com.study.hang.mobileSecurity.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.study.hang.util.SpUtil;
+import com.study.hang.mobileSecurity.R;
 
 /**
  * Created by hang on 16/3/20.

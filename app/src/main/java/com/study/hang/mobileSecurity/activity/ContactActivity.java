@@ -1,4 +1,4 @@
-package com.study.hang.mobileSecurity;
+package com.study.hang.mobileSecurity.activity;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -14,6 +14,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.study.hang.mobileSecurity.R;
 
 import java.net.URI;
 import java.util.ArrayList;

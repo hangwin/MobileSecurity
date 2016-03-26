@@ -1,18 +1,14 @@
-package com.study.hang.mobileSecurity;
+package com.study.hang.mobileSecurity.receiver;
 
-import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.study.hang.mobileSecurity.service.ScreenService;
 import com.study.hang.util.SpUtil;
 
 /**
