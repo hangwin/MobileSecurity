@@ -49,4 +49,15 @@ public class SpUtil {
         editor.putInt(key, value);
         editor.commit();
     }
+    public static float getFloat(Context context,String key) {
+        SharedPreferences sp=context.getSharedPreferences(pathName, Context.MODE_MULTI_PROCESS);
+        float str=sp.getFloat(key, 0);
+        return str;
+    }
+    public static void setFloat(Context context,String key,float value) {
+        SharedPreferences sp=context.getSharedPreferences(pathName,Context.MODE_MULTI_PROCESS);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putFloat(key, value);
+        editor.commit();
+    }
 }

@@ -8,10 +8,13 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -31,6 +34,8 @@ public class FindAddressService extends Service {
     private OutCallReceiver receiver;
     private WindowManager windowManager;
     private View view;
+    private float startX,startY;
+    private WindowManager.LayoutParams params;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -88,28 +93,88 @@ public class FindAddressService extends Service {
             myToast(result);
         }
     }
-
+    long[] times=new long[2];
     public void myToast(String str) {
-        int[] imageId=new int[] {R.drawable.light_blue,R.drawable.light_green,R.drawable.deep_green,R.drawable.light_purple};
-        int position= SpUtil.getInt(FindAddressService.this,"style_id");
 
+        int[] imageId=new int[] {R.drawable.light_blue,R.drawable.light_green,R.drawable.light_gray,R.drawable.deep_green,R.drawable.light_white};
+        int position= SpUtil.getInt(FindAddressService.this,"style_id");
         view=View.inflate(this, R.layout.call,null);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // System.out.println("========click=========");
+
+                System.arraycopy(times,1,times,0,times.length-1);
+                times[times.length-1]=SystemClock.uptimeMillis();
+                if(times[0]>= (SystemClock.uptimeMillis()-500)) {
+                    params.x=windowManager.getDefaultDisplay().getWidth()/2-view.getWidth()/2;
+                    windowManager.updateViewLayout(view,params);
+                    SpUtil.setFloat(FindAddressService.this,"lastX",params.x);
+                }
+
+
+            }
+        });
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                float newX,newY,dx,dy;
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startX= event.getRawX();
+                        startY= event.getRawY();
+                        event.getRawY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        newX=event.getRawX();
+                        newY=event.getRawY();
+                        dx=newX-startX;
+                        dy=newY-startY;
+                        params.x+=dx;
+                        params.y-=dy;
+                        if(params.x<0) {
+                            params.x=0;
+                        }
+                        if(params.y<0) {
+                            params.y=0;
+                        }
+                        if(params.x>windowManager.getDefaultDisplay().getWidth()-view.getWidth()) {
+                            params.x=windowManager.getDefaultDisplay().getWidth()-view.getWidth();
+                        }
+                        if(params.y>windowManager.getDefaultDisplay().getHeight()-view.getHeight()) {
+                            params.y=windowManager.getDefaultDisplay().getHeight()-view.getHeight();
+                        }
+                        windowManager.updateViewLayout(view,params);
+                        startX=newX;
+                        startY=newY;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        SpUtil.setFloat(FindAddressService.this,"lastX",params.x);
+                        SpUtil.setFloat(FindAddressService.this,"lastY",params.y);
+
+                        break;
+                }
+                return false;
+            }
+        });
         view.setBackgroundResource(imageId[position]);
         textView= (TextView) view.findViewById(R.id.show_area);
         textView.setText(str);
         textView.setTextSize(22);
         textView.setTextColor(Color.BLACK);
-        windowManager= (WindowManager) getSystemService(WINDOW_SERVICE);
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
 
+        windowManager= (WindowManager) getSystemService(WINDOW_SERVICE);
+        params = new WindowManager.LayoutParams();
+        params.x= (int) SpUtil.getFloat(FindAddressService.this, "lastX");
+        params.y= (int) SpUtil.getFloat(FindAddressService.this,"lastY");
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
-
+        params.gravity= Gravity.LEFT+Gravity.BOTTOM;
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
         params.format = PixelFormat.TRANSLUCENT;
-        params.type = WindowManager.LayoutParams.TYPE_TOAST;
+        params.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
         windowManager.addView(view,params);
 
     }

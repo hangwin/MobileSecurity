@@ -89,7 +89,7 @@ public class SettingActivity  extends Activity{
         });
 
         style= (ClickItem) findViewById(R.id.style);
-        final String[] str={"浅蓝色","浅绿色","深绿色","浅紫色"};
+        final String[] str={"天空蓝","浅绿色","浅灰色","深绿色","亮白色"};
         final int position=SpUtil.getInt(SettingActivity.this,"style_id");
         style.setDesc(str[position]);
         style.setOnClickListener(new View.OnClickListener() {
