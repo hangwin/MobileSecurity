@@ -3,11 +3,12 @@ package com.study.hang.mobileSecurity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.study.hang.com.study.hang.ui.SettingItem;
+import com.study.hang.ui.SettingItem;
 import com.study.hang.util.SpUtil;
 
 /**
@@ -17,12 +18,20 @@ import com.study.hang.util.SpUtil;
 public class LockActivity extends Activity{
     private TextView tv_enterGuide;
     private SettingItem setting;
+    private TextView tv_safenum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         boolean hasset= SpUtil.getBoolean(this,"hasSetLock",false);
         if (hasset) {  //如果已经进入过设置向导，则直接进入防盗页面
             setContentView(R.layout.lock_page);
+            tv_safenum= (TextView) findViewById(R.id.tv_savenum);
+            String safenum=SpUtil.getString(this,"saveNumber");
+            if(TextUtils.isEmpty(safenum)) {
+                tv_safenum.setText("尚未设置");
+            }else {
+                tv_safenum.setText(safenum);
+            }
             tv_enterGuide= (TextView) findViewById(R.id.tv_enterGuide);
             setting= (SettingItem) findViewById(R.id.setting_lock);
             boolean setting_lock=SpUtil.getBoolean(this,"setting_lock",false);

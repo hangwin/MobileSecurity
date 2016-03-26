@@ -18,7 +18,7 @@
         android:textSize="22sp"
         android:textColor="#ffffff"
         android:text="4、恭喜你，设置完成" />
-    <com.study.hang.com.study.hang.ui.SettingItem
+    <com.study.hang.ui.SettingItem
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

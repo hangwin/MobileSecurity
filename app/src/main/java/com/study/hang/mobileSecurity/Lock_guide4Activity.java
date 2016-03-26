@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import com.study.hang.com.study.hang.ui.SettingItem;
+import com.study.hang.ui.SettingItem;
 import com.study.hang.util.SpUtil;
 
 /**

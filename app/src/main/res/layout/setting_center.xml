@@ -17,14 +17,14 @@
         android:textSize="22dp"
         android:textColor="#ffffff"
         android:text="设置中心" />
-    <com.study.hang.com.study.hang.ui.SettingItem
+    <com.study.hang.ui.SettingItem
         android:id="@+id/update_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         >
 
-    </com.study.hang.com.study.hang.ui.SettingItem>
+    </com.study.hang.ui.SettingItem>
 
     <TextView
         android:background="#CCCCCC"

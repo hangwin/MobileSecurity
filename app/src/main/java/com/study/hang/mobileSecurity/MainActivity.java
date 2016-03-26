@@ -78,10 +78,12 @@ public class MainActivity extends Activity {
                     case 6:
                         break;
                     case 7:
+                        Intent intent7=new Intent(MainActivity.this,AdvancedToolActivity.class);
+                        startActivity(intent7);
                         break;
                     case 8:
-                        Intent intent=new Intent(MainActivity.this,SettingActivity.class);
-                        startActivity(intent);
+                        Intent intent8=new Intent(MainActivity.this,SettingActivity.class);
+                        startActivity(intent8);
                         break;
                 }
             }
@@ -106,25 +108,25 @@ public class MainActivity extends Activity {
         bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String psd1=text_pds.getText().toString().trim();
-                String psd2=text_confirm.getText().toString().trim();
-                if(TextUtils.isEmpty(psd1)||TextUtils.isEmpty(psd2)) {
-                    Toast.makeText(MainActivity.this,"密码不能为空",Toast.LENGTH_SHORT).show();
+                String psd1 = text_pds.getText().toString().trim();
+                String psd2 = text_confirm.getText().toString().trim();
+                if (TextUtils.isEmpty(psd1) || TextUtils.isEmpty(psd2)) {
+                    Toast.makeText(MainActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
                     text_pds.setText("");
                     text_confirm.setText("");
                     return;
                 }
                 if (!psd1.equals(psd2)) {
-                    Toast.makeText(MainActivity.this,"两次输入的密码不相等",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "两次输入的密码不相等", Toast.LENGTH_SHORT).show();
                     text_pds.setText("");
                     text_confirm.setText("");
                     return;
                 }
-                boolean res=SpUtil.setString(MainActivity.this,"userPassword", md5Util.encrypt(psd1));
-                if(!res) {
-                    Toast.makeText(MainActivity.this,"保存密码失败，请重试",Toast.LENGTH_SHORT).show();
+                boolean res = SpUtil.setString(MainActivity.this, "userPassword", md5Util.encrypt(psd1));
+                if (!res) {
+                    Toast.makeText(MainActivity.this, "保存密码失败，请重试", Toast.LENGTH_SHORT).show();
                     return;
-                } 
+                }
                 dialog.dismiss();
                 enterLock();
 

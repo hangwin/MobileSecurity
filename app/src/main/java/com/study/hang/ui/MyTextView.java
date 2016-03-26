@@ -1,4 +1,4 @@
-package com.study.hang.com.study.hang.ui;
+package com.study.hang.ui;
 
 import android.annotation.TargetApi;
 import android.content.Context;

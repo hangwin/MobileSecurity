@@ -1,11 +1,10 @@
 package com.study.hang.mobileSecurity;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 
-import com.study.hang.com.study.hang.ui.SettingItem;
+import com.study.hang.ui.SettingItem;
 import com.study.hang.util.SpUtil;
 
 /**

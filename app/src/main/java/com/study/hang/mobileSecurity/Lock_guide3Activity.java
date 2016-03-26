@@ -118,6 +118,9 @@ public class Lock_guide3Activity extends Activity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(data==null) {
+            return;
+        }
         String number=data.getStringExtra("number");
         if(!TextUtils.isEmpty(number)) {
             if(requestCode==0&&resultCode==1) {

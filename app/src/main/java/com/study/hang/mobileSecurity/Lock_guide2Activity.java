@@ -4,14 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
-import com.study.hang.com.study.hang.ui.SettingItem;
+import com.study.hang.ui.SettingItem;
 import com.study.hang.util.SpUtil;
 
 /**

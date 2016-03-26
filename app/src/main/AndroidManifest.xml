@@ -70,6 +70,12 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
+        <activity android:name=".AdvancedToolActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            />
+        <activity android:name=".FindNumberActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            />
     </application>
 
 
