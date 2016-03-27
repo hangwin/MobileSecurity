@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:allowBackup="true"
@@ -80,6 +81,10 @@
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             />
         <service android:name=".service.FindAddressService"/>
+        <activity android:name=".activity.BlackNumberActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            />
+        <service android:name=".service.BlockNumberService"/>
     </application>
 
 

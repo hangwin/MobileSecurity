@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.study.hang.mobileSecurity.R;
+import com.study.hang.mobileSecurity.service.BlockNumberService;
 import com.study.hang.mobileSecurity.service.FindAddressService;
 import com.study.hang.ui.ClickItem;
 import com.study.hang.ui.SettingItem;
@@ -23,12 +24,13 @@ public class SettingActivity  extends Activity{
 
     private SettingItem settingItem;
     private SettingItem findaddressItem;
+    private SettingItem blocknum;
     private ClickItem style;
     @Override
     protected void onResume() {
         super.onResume();
         findaddressItem.setMian("是否显示电话归属地");
-        if(ServiceUtil.isServiceAlive(this,getPackageName())) {
+        if(ServiceUtil.isServiceAlive(this,"com.study.hang.mobileSecurity.service.FindAddressService")) {
             findaddressItem.setDesc("已开启电话归属地显示");
             findaddressItem.setIsChecked(true);
         }else {
@@ -88,6 +90,7 @@ public class SettingActivity  extends Activity{
             }
         });
 
+
         style= (ClickItem) findViewById(R.id.style);
         final String[] str={"天空蓝","浅绿色","浅灰色","深绿色","亮白色"};
         final int position=SpUtil.getInt(SettingActivity.this,"style_id");
@@ -96,21 +99,47 @@ public class SettingActivity  extends Activity{
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder= new AlertDialog.Builder(SettingActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
                 builder.setSingleChoiceItems(str, position, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SpUtil.setInt(SettingActivity.this,"style_id",which);
+                        SpUtil.setInt(SettingActivity.this, "style_id", which);
                         style.setDesc(str[which]);
                         dialog.dismiss();
                     }
                 });
-                builder.setNegativeButton("取 消",null);
+                builder.setNegativeButton("取 消", null);
                 builder.show();
             }
 
         });
 
+        blocknum= (SettingItem) findViewById(R.id.blocknumber);
+        blocknum.setMian("是否开启黑名单拦截");
+        if(ServiceUtil.isServiceAlive(this,"com.study.hang.mobileSecurity.service.BlockNumberService")) {
+            blocknum.setDesc("已开启黑名单拦截");
+            blocknum.setIsChecked(true);
+        }else {
+            blocknum.setDesc("已关闭黑名单拦截");
+            blocknum.setIsChecked(false);
+        }
+        blocknum.tg_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                blocknum.setIsChecked(isChecked);
+                Intent intent = null;
+                if (isChecked) {
+                    blocknum.setDesc("已开启黑名单拦截");
+                    intent = new Intent(SettingActivity.this, BlockNumberService.class);
+                    startService(intent);
+                } else {
+                    blocknum.setDesc("已关闭黑名单拦截");
+                    intent = new Intent(SettingActivity.this, BlockNumberService.class);
+                    stopService(intent);
+                }
+
+            }
+        });
 
     }
 }

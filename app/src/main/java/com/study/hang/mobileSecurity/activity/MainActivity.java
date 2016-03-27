@@ -49,6 +49,7 @@ public class MainActivity extends Activity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
                 switch (position) {
                     case 0:
                         boolean hasSetpsd= SpUtil.getBoolean(MainActivity.this,"hasSetpsd",false);
@@ -66,18 +67,20 @@ public class MainActivity extends Activity {
                     case 3:
                         break;
                     case 4:
+                        intent=new Intent(MainActivity.this,BlackNumberActivity.class);
+                        startActivity(intent);
                         break;
                     case 5:
                         break;
                     case 6:
                         break;
                     case 7:
-                        Intent intent7=new Intent(MainActivity.this,AdvancedToolActivity.class);
-                        startActivity(intent7);
+                        intent=new Intent(MainActivity.this,AdvancedToolActivity.class);
+                        startActivity(intent);
                         break;
                     case 8:
-                        Intent intent8=new Intent(MainActivity.this,SettingActivity.class);
-                        startActivity(intent8);
+                        intent=new Intent(MainActivity.this,SettingActivity.class);
+                        startActivity(intent);
                         break;
                 }
             }

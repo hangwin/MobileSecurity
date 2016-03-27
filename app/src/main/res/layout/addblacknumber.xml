@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="280dp"
+    android:background="#ffffff"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:gravity="center"
+        android:text="添加黑名单"
+        android:background="#00CCCC"
+        android:padding="10dp"
+        android:textSize="22sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/et_number"
+        android:hint="请输入要添加的号码"
+        android:gravity="center"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:id="@+id/call"
+            android:text="拦截电话"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <CheckBox
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:id="@+id/message"
+            android:text="拦截短信"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/bt_ok"
+            android:text="确  定"
+
+            android:textSize="20sp"
+            android:background="@drawable/btn_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:background="#44000000"
+            android:layout_width="1dp"
+            android:layout_height="0dp"/>
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/bt_cancel"
+            android:text="取  消"
+            android:textSize="20sp"
+            android:background="@drawable/btn_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+</LinearLayout>
