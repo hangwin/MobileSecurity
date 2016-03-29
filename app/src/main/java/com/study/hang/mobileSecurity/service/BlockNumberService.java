@@ -9,7 +9,9 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 
-//import com.android.internal.telecom.ITelephony;
+//import com.android.internal.telephony.ITelephony;
+import com.android.internal.telecom.ITelecomService;
+import com.android.internal.telephony.ITelephony;
 import com.study.hang.db.BlackNumberDao;
 
 import java.lang.reflect.Method;
@@ -68,7 +70,7 @@ public class BlockNumberService extends Service {
                 Class mClass=BlockNumberService.class.getClassLoader().loadClass("android.os.ServiceManager");
                 Method method=mClass.getDeclaredMethod("getService", String.class);
                 IBinder iBinder= (IBinder) method.invoke(null,TELECOM_SERVICE);
-               // ITelephony.Stub.asInterface(iBinder).endCall();
+                ITelephony.Stub.asInterface(iBinder).endCall();
             } catch (Exception e) {
                 e.printStackTrace();
             }
