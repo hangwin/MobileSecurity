@@ -61,6 +61,8 @@ public class MainActivity extends Activity {
                         }
                         break;
                     case 1:
+                        intent =new Intent(MainActivity.this,SoftwareManageActivity.class);
+                        startActivity(intent);
                         break;
                     case 2:
                         break;

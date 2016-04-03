@@ -87,6 +87,9 @@
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             />
         <service android:name=".service.BlockNumberService"/>
+        <activity android:name=".activity.SoftwareManageActivity"
+
+            />
     </application>
 
 
