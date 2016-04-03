@@ -7,7 +7,7 @@
     android:gravity="center_horizontal"
     >
 <LinearLayout
-
+    android:id="@+id/uninstall"
     android:padding="12dp"
     android:orientation="vertical"
     android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content" />
 </LinearLayout>
     <LinearLayout
-
+        android:id="@+id/run"
         android:padding="12dp"
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -42,8 +42,8 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/share"
         android:padding="12dp"
-
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

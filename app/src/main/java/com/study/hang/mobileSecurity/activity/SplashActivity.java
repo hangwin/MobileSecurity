@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -149,6 +150,7 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         //如果是第一次启动，则进入导航页面
         if (!SpUtil.getBoolean(this, "isFirstOpen",false)) {
+            createshortcut();
             copydb();
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
@@ -180,6 +182,22 @@ public class SplashActivity extends Activity {
 
 
         }
+    }
+
+    /*
+     *创建桌面快捷方式
+     */
+    private void createshortcut() {
+        Intent intent=new Intent();
+        intent.setAction("com.android.luancher.action.INSTALL_SHORTCUT");
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME,"手机卫士");
+        Intent shortcut=new Intent();
+        shortcut.setAction("android.intent.action.MAIN");
+        shortcut.addCategory("android.intent.category.LUANCHER");
+        shortcut.setClassName(getPackageName(),"com.study.hang.mobileSecurity.SplashActivity");
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT,shortcut);
+        sendBroadcast(intent);
     }
 
     private void copydb() {
