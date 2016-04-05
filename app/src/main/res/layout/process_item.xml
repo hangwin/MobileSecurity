@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    >
+
+    <ImageView
+        android:paddingRight="16dp"
+        android:id="@+id/app_icon"
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textSize="17dp"
+        android:paddingTop="5dp"
+        android:layout_toRightOf="@id/app_icon"
+        android:id="@+id/processname"
+        android:text="手机卫士"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:paddingTop="5dp"
+        android:layout_toRightOf="@id/app_icon"
+        android:layout_below="@id/processname"
+        android:id="@+id/processmem"
+        android:text="安装位置"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

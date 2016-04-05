@@ -258,7 +258,7 @@ public class SoftwareManageActivity extends Activity implements View.OnClickList
                 }else {
                     tv=new TextView(SoftwareManageActivity.this);
                 }
-                tv.setText("系统程序("+userapp.size()+")");
+                tv.setText("系统程序("+systemapp.size()+")");
                 tv.setPadding(16,5,0,5);
                 tv.setBackgroundColor(getResources().getColor(R.color.dark_blue));
                 return tv;
