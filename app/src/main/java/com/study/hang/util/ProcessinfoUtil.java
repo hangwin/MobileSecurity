@@ -29,6 +29,7 @@ public class ProcessinfoUtil {
             Debug.MemoryInfo[] processmem=manager.getProcessMemoryInfo(pid);
             process.setMemsize(processmem[0].getTotalPrivateDirty()*1024);
             process.setPackageName(processName);
+            process.setIsChecked(false);
             try {
                ApplicationInfo appinfo=packagemanager.getApplicationInfo(processName,0);
                process.setIcon(appinfo.loadIcon(packagemanager));
@@ -40,8 +41,9 @@ public class ProcessinfoUtil {
                }
 
              } catch (PackageManager.NameNotFoundException e) {
-                process.setIcon(context.getResources().getDrawable(R.mipmap.ic_launcher));
                 e.printStackTrace();
+                process.setIcon(context.getResources().getDrawable(R.mipmap.ic_launcher));
+                process.setName(processName);
             }
             list.add(process);
         }

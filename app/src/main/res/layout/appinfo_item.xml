@@ -2,18 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:padding="12dp"
+
     >
 
     <ImageView
         android:paddingRight="16dp"
         android:id="@+id/app_icon"
         android:src="@mipmap/ic_launcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="70dp"
+        android:layout_height="70dp" />
     <TextView
         android:textSize="17dp"
-        android:paddingTop="5dp"
+        android:paddingTop="15dp"
         android:layout_toRightOf="@id/app_icon"
         android:id="@+id/appname"
         android:text="手机卫士"

@@ -11,6 +11,15 @@ public class ProcessEntity {
     private String packageName;
     private long memsize;
     private boolean isuserprocess;
+    private boolean isChecked;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
 
     public Drawable getIcon() {
         return icon;

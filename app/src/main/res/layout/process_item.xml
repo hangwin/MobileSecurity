@@ -9,11 +9,11 @@
         android:paddingRight="16dp"
         android:id="@+id/app_icon"
         android:src="@mipmap/ic_launcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="70dp"
+        android:layout_height="60dp" />
     <TextView
         android:textSize="17dp"
-        android:paddingTop="5dp"
+        android:paddingTop="8dp"
         android:layout_toRightOf="@id/app_icon"
         android:id="@+id/processname"
         android:text="手机卫士"
@@ -28,6 +28,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <CheckBox
+        android:focusable="false"
+        android:clickable="false"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:id="@+id/checkbox"

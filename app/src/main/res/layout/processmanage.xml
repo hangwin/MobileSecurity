@@ -2,8 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
     <TextView
         android:id="@+id/title"
         android:gravity="center"
@@ -38,6 +36,7 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <FrameLayout
+        android:layout_weight="9999"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -73,4 +72,38 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:onClick="selectAll"
+            android:id="@+id/selectall"
+            android:layout_weight="1"
+            android:text="全    选"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:onClick="reverseSelect"
+            android:id="@+id/reverseselect"
+            android:layout_weight="1"
+            android:text="反    选"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:onClick="clean"
+            android:id="@+id/clean"
+            android:layout_weight="1"
+            android:text="一键清理"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:onClick="set"
+            android:id="@+id/setting"
+            android:layout_weight="1"
+            android:text="设     置"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>

@@ -22,19 +22,19 @@ public class SystemInfoUtil {
         return list.size();
     }
 
-    public static String getAvailableMemory(Context context) {
+    public static long getAvailableMemory(Context context) {
         ActivityManager manager=getManager(context);
         ActivityManager.MemoryInfo memoryInfo=new ActivityManager.MemoryInfo();
         manager.getMemoryInfo(memoryInfo);
-        return Formatter.formatFileSize(context, memoryInfo.availMem);
+        return memoryInfo.availMem;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public static String getTotalMemory(Context context) {
+    public static long getTotalMemory(Context context) {
         ActivityManager manager=getManager(context);
         ActivityManager.MemoryInfo memoryInfo=new ActivityManager.MemoryInfo();
         manager.getMemoryInfo(memoryInfo);
-        return Formatter.formatFileSize(context,memoryInfo.totalMem);
+        return memoryInfo.totalMem;
     }
 
 

@@ -45,7 +45,7 @@ public class SoftwareManageActivity extends Activity implements View.OnClickList
     private ProgressBar pb;
     private TextView status;
     private PopupWindow popup;
-    private LinearLayout unstall,run,share;
+    private RelativeLayout unstall,run,share;
     private AppEntity app;
     private  myAdapter adapter;
 
@@ -107,16 +107,16 @@ public class SoftwareManageActivity extends Activity implements View.OnClickList
 
     private void pupuwindow(AdapterView<?> parent, View view) {
         View contentView= LayoutInflater.from(SoftwareManageActivity.this).inflate(R.layout.popu_dialog,null);
-        unstall= (LinearLayout) contentView.findViewById(R.id.uninstall);
-        run= (LinearLayout) contentView.findViewById(R.id.run);
-        share= (LinearLayout)contentView.findViewById(R.id.share);
+        unstall= (RelativeLayout) contentView.findViewById(R.id.uninstall);
+        run= (RelativeLayout) contentView.findViewById(R.id.run);
+        share= (RelativeLayout)contentView.findViewById(R.id.share);
         unstall.setOnClickListener(SoftwareManageActivity.this);
         run.setOnClickListener(SoftwareManageActivity.this);
         share.setOnClickListener(SoftwareManageActivity.this);
-        popup=new PopupWindow(contentView,300,120);
+        popup=new PopupWindow(contentView,-2,-2);
         int[] location=new int[2];
         view.getLocationInWindow(location);
-        popup.showAtLocation(parent, Gravity.LEFT|Gravity.TOP,location[0]+50,location[1]-60);
+        popup.showAtLocation(parent, Gravity.LEFT|Gravity.TOP,location[0]+200,location[1]-140);
     }
 
     private void getdata() {
