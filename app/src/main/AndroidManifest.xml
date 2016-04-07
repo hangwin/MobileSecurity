@@ -102,6 +102,12 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/my_appwidget_info" />
         </receiver>
+        <service android:name=".service.WidgetService"/>
+        <receiver android:name=".receiver.cleanAllReceiver">
+            <intent-filter>
+                <action android:name="com.hang.cleanall"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 
