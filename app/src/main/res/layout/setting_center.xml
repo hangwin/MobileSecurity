@@ -49,6 +49,16 @@
         android:background="#CCCCCC"
         android:layout_width="match_parent"
         android:layout_height="1dp" />
+    <com.study.hang.ui.SettingItem
+        android:id="@+id/watchdog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </com.study.hang.ui.SettingItem>
+    <TextView
+        android:background="#CCCCCC"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
     <com.study.hang.ui.ClickItem
         android:id="@+id/style"
         android:layout_width="match_parent"

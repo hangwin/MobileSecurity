@@ -28,5 +28,12 @@
         android:text="安装位置"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/lock_status"
+        android:src="@drawable/sunlock"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
 
 </RelativeLayout>

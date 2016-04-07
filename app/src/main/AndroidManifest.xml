@@ -108,6 +108,7 @@
                 <action android:name="com.hang.cleanall"/>
             </intent-filter>
         </receiver>
+        <service android:name=".service.watchdogService"/>
     </application>
 
 

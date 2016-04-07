@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import com.study.hang.mobileSecurity.R;
 import com.study.hang.mobileSecurity.service.BlockNumberService;
 import com.study.hang.mobileSecurity.service.FindAddressService;
+import com.study.hang.mobileSecurity.service.watchdogService;
 import com.study.hang.ui.ClickItem;
 import com.study.hang.ui.SettingItem;
 import com.study.hang.util.ServiceUtil;
@@ -25,6 +26,7 @@ public class SettingActivity  extends Activity{
     private SettingItem settingItem;
     private SettingItem findaddressItem;
     private SettingItem blocknum;
+    private SettingItem watchdog;
     private ClickItem style;
     @Override
     protected void onResume() {
@@ -36,6 +38,13 @@ public class SettingActivity  extends Activity{
         }else {
             findaddressItem.setDesc("已关闭电话归属地显示");
             findaddressItem.setIsChecked(false);
+        }
+        if(ServiceUtil.isServiceAlive(this,"com.study.hang.mobileSecurity.service.watchdogService")) {
+            watchdog.setDesc("已开启看门狗");
+            watchdog.setIsChecked(true);
+        }else {
+            watchdog.setDesc("已关闭看门狗");
+            watchdog.setIsChecked(false);
         }
     }
 
@@ -90,7 +99,26 @@ public class SettingActivity  extends Activity{
             }
         });
 
-
+        watchdog= (SettingItem) findViewById(R.id.watchdog);
+        watchdog.setMian("是否开启看门狗");
+        if(ServiceUtil.isServiceAlive(this,"com.study.hang.mobileSecurity.service.watchdogService")) {
+            watchdog.setDesc("已开启看门狗");
+            watchdog.setIsChecked(true);
+        }else {
+            watchdog.setDesc("已关闭看门狗");
+            watchdog.setIsChecked(false);
+        }
+        watchdog.tg_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                 Intent intent=new Intent(SettingActivity.this,watchdogService.class);
+                 if(isChecked) {
+                     startService(intent);
+                 }else {
+                     stopService(intent);
+                 }
+            }
+        });
         style= (ClickItem) findViewById(R.id.style);
         final String[] str={"天空蓝","浅绿色","浅灰色","深绿色","亮白色"};
         final int position=SpUtil.getInt(SettingActivity.this,"style_id");

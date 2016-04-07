@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.study.hang.db.LockAppDao;
 import com.study.hang.mobileSecurity.R;
 import com.study.hang.util.AppEntity;
 import com.study.hang.util.AppInfoUtil;
@@ -48,6 +49,7 @@ public class SoftwareManageActivity extends Activity implements View.OnClickList
     private RelativeLayout unstall,run,share;
     private AppEntity app;
     private  myAdapter adapter;
+    private  LockAppDao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class SoftwareManageActivity extends Activity implements View.OnClickList
         lv= (ListView) findViewById(R.id.lv_appinfo);
         pb= (ProgressBar) findViewById(R.id.pb);
         status= (TextView) findViewById(R.id.status);
+        dao=new LockAppDao(this);
         tv_memory.setText("内存可用空间："+getAvailableSpace(Environment.getDataDirectory().getAbsolutePath()));
         tv_sd.setText("SD卡可用空间："+getAvailableSpace(Environment.getExternalStorageDirectory().getAbsolutePath()));
         getdata();
@@ -76,9 +79,9 @@ public class SoftwareManageActivity extends Activity implements View.OnClickList
                         status.setText("用户程序(" + userapp.size() + ")");
                     }
                 }
-                if(popup!=null&&popup.isShowing()) {
+                if (popup != null && popup.isShowing()) {
                     popup.dismiss();
-                    popup=null;
+                    popup = null;
                 }
 
             }
@@ -87,20 +90,43 @@ public class SoftwareManageActivity extends Activity implements View.OnClickList
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(popup!=null&&popup.isShowing()) {
+                if (popup != null && popup.isShowing()) {
                     popup.dismiss();
-                    popup=null;
+                    popup = null;
                 }
 
-                if(position==0||position==userapp.size()+1) {
+                if (position == 0 || position == userapp.size() + 1) {
                     return;
-                }else if(position<=userapp.size()) {
-                    app=userapp.get(position-1);
+                } else if (position <= userapp.size()) {
+                    app = userapp.get(position - 1);
                     pupuwindow(parent, view);
-                }else {
-                    app=systemapp.get(position-2-userapp.size());
+                } else {
+                    app = systemapp.get(position - 2 - userapp.size());
                     pupuwindow(parent, view);
                 }
+            }
+        });
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                myAdapter.ViewHolder holder= (myAdapter.ViewHolder) view.getTag();
+                if (position == 0 || position == userapp.size() + 1) {
+                    return true;
+                } else if (position <= userapp.size()) {
+                    app = userapp.get(position - 1);
+
+                } else {
+                    app = systemapp.get(position - 2 - userapp.size());
+                }
+                if(dao.find(app.getPackageName())) {
+                    dao.delete(app.getPackageName());
+                    holder.lock_status.setImageDrawable(getDrawable(R.drawable.sunlock));
+                }else {
+                    dao.insert(app.getPackageName());
+                    holder.lock_status.setImageDrawable(getDrawable(R.drawable.slock));
+                }
+                return true;
             }
         });
     }
@@ -283,17 +309,19 @@ public class SoftwareManageActivity extends Activity implements View.OnClickList
                 holder.icon= (ImageView) view.findViewById(R.id.app_icon);
                 holder.tv_appname= (TextView) view.findViewById(R.id.appname);
                 holder.tv_location= (TextView) view.findViewById(R.id.isInRom);
+                holder.lock_status= (ImageView) view.findViewById(R.id.lock_status);
                 view.setTag(holder);
             }
             holder.icon.setImageDrawable(app.getIcon());
             holder.tv_appname.setText(app.getAppName());
-            holder.tv_location.setText(app.isInRom()?"手机内存":"外部存储");
+            holder.tv_location.setText(app.isInRom() ? "手机内存" : "外部存储");
             return view;
         }
         class ViewHolder {
             ImageView icon;
             TextView tv_appname;
             TextView tv_location;
+            ImageView lock_status;
         }
     }
 }
