@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#33000000"
+    >
+    <TextView
+        android:padding="10dp"
+     android:id="@+id/processcount"
+     android:text="运行中的程序:17"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content" />
+    <TextView
+        android:padding="10dp"
+        android:layout_below="@id/processcount"
+        android:id="@+id/availmem"
+        android:text="可用内存:17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_toRightOf="@id/processcount"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/ic_launcher"
+                />
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:text="手机卫士"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <Button
+            android:text="一键清理"
+            android:textSize="12sp"
+            android:id="@+id/bt_clean"
+            android:layout_width="100dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+</RelativeLayout>

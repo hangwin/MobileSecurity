@@ -46,10 +46,12 @@ public class ProgressSettingActivity extends Activity {
     protected void onStart() {
         super.onStart();
         isShow.setChecked(SpUtil.getBoolean(ProgressSettingActivity.this,"isShowSystemProcess",false));
-        if(ServiceUtil.isServiceAlive(this,"com.study.hang.service.LockService")) {
+        if(ServiceUtil.isServiceAlive(this,"com.study.hang.mobileSecurity.service.LockService")) {
+            System.out.println("============>ServiceAlive");
             lockClean.setChecked(true);
         }else {
             lockClean.setChecked(false);
+            System.out.println("==========>ServicenotAlive");
         }
     }
 }

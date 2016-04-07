@@ -33,6 +33,7 @@ public class LockService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        System.out.println("============服务销毁=========");
         unregisterReceiver(receiver);
         receiver=null;
     }
@@ -45,6 +46,7 @@ public class LockService extends Service {
             ActivityManager manager= (ActivityManager) getSystemService(ACTIVITY_SERVICE);
             List<ActivityManager.RunningAppProcessInfo> list= manager.getRunningAppProcesses();
             for(ActivityManager.RunningAppProcessInfo info:list) {
+                System.out.println("kill============>"+info.processName);
                 manager.killBackgroundProcesses(info.processName);
             }
         }

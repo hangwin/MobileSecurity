@@ -322,5 +322,6 @@ public class ProcessManageActivity extends Activity {
         if(adapter!=null) {
             adapter.notifyDataSetChanged();
         }
+
     }
 }

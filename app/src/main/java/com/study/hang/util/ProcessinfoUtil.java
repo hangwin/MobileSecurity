@@ -45,6 +45,7 @@ public class ProcessinfoUtil {
                 process.setIcon(context.getResources().getDrawable(R.mipmap.ic_launcher));
                 process.setName(processName);
             }
+            //System.out.println(process.toString());
             list.add(process);
         }
         return list;
