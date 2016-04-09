@@ -315,6 +315,11 @@ public class SoftwareManageActivity extends Activity implements View.OnClickList
             holder.icon.setImageDrawable(app.getIcon());
             holder.tv_appname.setText(app.getAppName());
             holder.tv_location.setText(app.isInRom() ? "手机内存" : "外部存储");
+            if(dao.find(app.getPackageName())) {
+                holder.lock_status.setImageDrawable(getDrawable(R.drawable.slock));
+            }else {
+                holder.lock_status.setImageDrawable(getDrawable(R.drawable.sunlock));
+            }
             return view;
         }
         class ViewHolder {

@@ -113,6 +113,7 @@ public class SettingActivity  extends Activity{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                  Intent intent=new Intent(SettingActivity.this,watchdogService.class);
                  if(isChecked) {
+
                      startService(intent);
                  }else {
                      stopService(intent);
