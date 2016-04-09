@@ -2,11 +2,18 @@ package com.study.hang.mobileSecurity.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.study.hang.mobileSecurity.R;
 import com.study.hang.mobileSecurity.service.BlockNumberService;
@@ -28,6 +35,7 @@ public class SettingActivity  extends Activity{
     private SettingItem blocknum;
     private SettingItem watchdog;
     private ClickItem style;
+    private Dialog dialog;
     @Override
     protected void onResume() {
         super.onResume();
@@ -111,10 +119,53 @@ public class SettingActivity  extends Activity{
         watchdog.tg_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                 Intent intent=new Intent(SettingActivity.this,watchdogService.class);
+                 final Intent intent=new Intent(SettingActivity.this,watchdogService.class);
                  if(isChecked) {
+                     String temp=SpUtil.getString(SettingActivity.this,"AppPsd");
+                     System.out.println("========>"+temp);
+                     if(TextUtils.isEmpty(temp)) {
+                         AlertDialog.Builder builder=new AlertDialog.Builder(SettingActivity.this);
+                         View view= LayoutInflater.from(SettingActivity.this).inflate(R.layout.setpassword,null);
+                         TextView til= (TextView) view.findViewById(R.id.til);
+                         til.setText("请先设置程序锁的密码");
+                         final EditText ed_psd= (EditText) view.findViewById(R.id.ed_psd);
+                         final EditText ed_confimpsd= (EditText) view.findViewById(R.id.ed_confirmpsd);
+                         Button bt_ok= (Button) view.findViewById(R.id.bt_ok);
+                         Button bt_cancle= (Button) view.findViewById(R.id.bt_cancel);
+                         bt_ok.setOnClickListener(new View.OnClickListener() {
+                             @Override
+                             public void onClick(View v) {
+                                 String psd1=ed_psd.getText().toString();
+                                 String psd2=ed_confimpsd.getText().toString();
+                                 if(!TextUtils.isEmpty(psd1)&&!TextUtils.isEmpty(psd2)) {
+                                     if(psd1.equals(psd2)) {
+                                         SpUtil.setString(SettingActivity.this,"AppPsd",psd1);
+                                         startService(intent);
+                                         dialog.dismiss();
+                                     }else {
+                                         Toast.makeText(SettingActivity.this,"两次输入的密码不一致",Toast.LENGTH_SHORT).show();
+                                     }
+                                 }else {
+                                     Toast.makeText(SettingActivity.this,"密码不能为空",Toast.LENGTH_SHORT).show();
 
-                     startService(intent);
+                                 }
+                             }
+                         });
+                         bt_cancle.setOnClickListener(new View.OnClickListener() {
+                             @Override
+                             public void onClick(View v) {
+                                 if (dialog != null) {
+                                     watchdog.setIsChecked(false);
+                                     dialog.dismiss();
+                                 }
+                             }
+                         });
+                         builder.setView(view);
+                         dialog=builder.show();
+
+                     }else {
+                         startService(intent);
+                     }
                  }else {
                      stopService(intent);
                  }

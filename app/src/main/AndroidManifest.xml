@@ -110,7 +110,10 @@
             </intent-filter>
         </receiver>
         <service android:name=".service.watchdogService"/>
-        <activity android:name=".activity.LockAppActivity"/>
+        <activity android:name=".activity.LockAppActivity"
+            android:launchMode="singleInstance"
+            android:autoRemoveFromRecents="true"
+            />
     </application>
 
 

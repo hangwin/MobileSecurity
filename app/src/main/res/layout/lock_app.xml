@@ -5,6 +5,22 @@
     android:layout_height="match_parent"
     android:background="#229999"
     >
+    <ImageView
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+    <TextView
+        android:gravity="center_horizontal"
+        android:text="app名字"
+        android:textSize="20sp"
+        android:id="@+id/appname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:gravity="center"
