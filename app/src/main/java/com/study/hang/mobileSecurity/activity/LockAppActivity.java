@@ -6,6 +6,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.TrafficStats;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -66,6 +67,7 @@ public class LockAppActivity extends Activity {
                         finish();
                     }else {
                         Toast.makeText(LockAppActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
+
 
                     }
 

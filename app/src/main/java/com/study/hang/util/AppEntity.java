@@ -11,6 +11,15 @@ public class AppEntity {
     private String appName;
     private boolean isInRom;
     private boolean isUser;
+    private int uid;
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
     public String getAppName() {
         return appName;

@@ -114,6 +114,7 @@
             android:launchMode="singleInstance"
             android:autoRemoveFromRecents="true"
             />
+        <activity android:name=".activity.TrafficStatisticsActivity"/>
     </application>
 
 

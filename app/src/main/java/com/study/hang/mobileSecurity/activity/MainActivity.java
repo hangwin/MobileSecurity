@@ -77,6 +77,8 @@ public class MainActivity extends Activity {
                     case 5:
                         break;
                     case 6:
+                        intent=new Intent(MainActivity.this,TrafficStatisticsActivity.class);
+                        startActivity(intent);
                         break;
                     case 7:
                         intent=new Intent(MainActivity.this,AdvancedToolActivity.class);
