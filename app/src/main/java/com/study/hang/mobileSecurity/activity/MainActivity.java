@@ -69,6 +69,8 @@ public class MainActivity extends Activity {
                         startActivity(intent);
                         break;
                     case 3:
+                        intent=new Intent(MainActivity.this,CleanCacheActivity.class);
+                        startActivity(intent);
                         break;
                     case 4:
                         intent=new Intent(MainActivity.this,BlackNumberActivity.class);
