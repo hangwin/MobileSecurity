@@ -39,18 +39,25 @@ public class CleanCacheActivity extends Activity {
 
     private void getCache() {
         List<ApplicationInfo> list=manager.getInstalledApplications(0);
-        Method[] methods= manager.getClass().getMethods();
+        Method[] methods= PackageManager.class.getMethods();
         Method getPackageSizeInfo = null;
         try {
-            getPackageSizeInfo = PackageManager.class
-                    .getDeclaredMethod("getPackageSizeInfo", String.class, IPackageStatsObserver.class);
+            getPackageSizeInfo = PackageManager.class.getDeclaredMethod("getPackageSizeInfo", String.class, IPackageStatsObserver.class);
+           // System.out.println("===================>"+getPackageSizeInfo.getName());
+         /*  for(Method m:methods) {
+                if(m.getName().equals("getPackageSizeInfo"));
+                getPackageSizeInfo=m;
+            }*/
         for(ApplicationInfo info:list) {
-           getPackageSizeInfo.invoke(manager,info.packageName , new myPackageStateObserver());
-       }} catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            System.out.println("===========>"+info.packageName);
+            getPackageSizeInfo.invoke(manager, info.packageName, new myPackageStateObserver());
+        }
         } catch (InvocationTargetException e) {
             e.printStackTrace();
+            System.out.println("====>"+e.getMessage());
         } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
 
