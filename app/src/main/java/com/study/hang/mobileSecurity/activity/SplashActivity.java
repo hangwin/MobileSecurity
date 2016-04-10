@@ -151,7 +151,8 @@ public class SplashActivity extends Activity {
         //如果是第一次启动，则进入导航页面
         if (!SpUtil.getBoolean(this, "isFirstOpen",false)) {
             createshortcut();
-            copydb();
+            copydb("address.db");
+            copydb("antivirus.db");
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
             finish();
@@ -200,10 +201,10 @@ public class SplashActivity extends Activity {
         sendBroadcast(intent);
     }
 
-    private void copydb() {
+    private void copydb(String name) {
         try {
-            InputStream is=getAssets().open("address.db");
-            File file=new File(getFilesDir(),"address.db");
+            InputStream is=getAssets().open(name);
+            File file=new File(getFilesDir(),name);
             FileOutputStream fos=new FileOutputStream(file);
             int length=0;
             byte[] bytes=new byte[1024];

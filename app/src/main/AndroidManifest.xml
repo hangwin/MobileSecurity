@@ -115,6 +115,7 @@
             android:autoRemoveFromRecents="true"
             />
         <activity android:name=".activity.TrafficStatisticsActivity"/>
+        <activity android:name=".activity.KillvirusActivity"/>
     </application>
 
 
