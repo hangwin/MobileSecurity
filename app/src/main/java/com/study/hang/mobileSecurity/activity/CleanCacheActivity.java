@@ -8,9 +8,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
+import android.os.StatFs;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 
 import com.study.hang.mobileSecurity.R;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -146,6 +149,7 @@ public class CleanCacheActivity extends Activity {
         @Override
         public void onRemoveCompleted(String packageName, boolean succeeded) throws RemoteException {
                System.out.println("清理=========>"+packageName);
+               System.out.println("**********succeed"+succeeded);
         }
     }
     class appCacheinfo{
@@ -153,13 +157,29 @@ public class CleanCacheActivity extends Activity {
         String packageName,appName;
         long cache;
     }
-
+    private long getDataDirectorySize() {
+        File tmpFile = Environment.getDataDirectory();
+        if (tmpFile == null) {
+            return 0l;
+        }
+        String strDataDirectoryPath = tmpFile.getPath();
+        StatFs localStatFs = new StatFs(strDataDirectoryPath);
+        long size = localStatFs.getBlockSize() * localStatFs.getBlockCount();
+        return size;
+    }
     public void cleanAll(View view) {
         try {
-            Method freeStorageAndNotify=PackageManager.class.getDeclaredMethod("freeStorageAndNotify", Long.class, IPackageDataObserver.class);
-            freeStorageAndNotify.invoke(manager,Integer.MAX_VALUE,new myPackageDateObserver());
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            //Method freeStorageAndNotify=PackageManager.class.getDeclaredMethod("freeStorageAndNotify", Long.class, IPackageDataObserver.class);
+            Method freeStorageAndNotify=null;
+            Method[] methods=PackageManager.class.getMethods();
+            for(Method m:methods) {
+                if("freeStorageAndNotify".equals(m.getName())) {
+                    freeStorageAndNotify=m;
+                    System.out.println("================>"+"找到了"+freeStorageAndNotify.getName());
+                }
+            }
+            Long freeStorageSize = Long.valueOf(getDataDirectorySize());
+            freeStorageAndNotify.invoke(manager,freeStorageSize,new myPackageDateObserver());
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
