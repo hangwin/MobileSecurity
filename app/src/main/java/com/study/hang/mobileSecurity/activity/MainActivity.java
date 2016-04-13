@@ -32,9 +32,9 @@ public class MainActivity extends Activity {
     private  AlertDialog dialog;
     private Button bt_ok;
     private Button bt_cancel;
-    private String[] text={"手机防盗","软件管理","进程管理","缓存清理","通讯卫士","手机杀毒","流量统计","高级工具","设置中心"};
+    private String[] text={"手机防盗","软件管理","进程管理","缓存清理","通讯卫士","手机杀毒","流量统计","高级工具","设置中心","人脸工具"};
     private int[] imageId={R.drawable.lock,R.drawable.sofeware,R.drawable.process,R.drawable.clean,R.drawable.communication,
-            R.drawable.virus,R.drawable.flow,R.drawable.tool,R.drawable.setting
+            R.drawable.virus,R.drawable.flow,R.drawable.tool,R.drawable.setting,R.drawable.face
     };
 
     @Override
@@ -90,6 +90,10 @@ public class MainActivity extends Activity {
                         break;
                     case 8:
                         intent=new Intent(MainActivity.this,SettingActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 9:
+                        intent=new Intent(MainActivity.this,FaceActivity.class);
                         startActivity(intent);
                         break;
                 }

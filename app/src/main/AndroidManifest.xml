@@ -119,6 +119,7 @@
         <activity android:name=".activity.TrafficStatisticsActivity"/>
         <activity android:name=".activity.KillvirusActivity"/>
         <activity android:name=".activity.CleanCacheActivity"/>
+        <activity android:name=".activity.FaceActivity"/>
     </application>
 
 
