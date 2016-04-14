@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
+
             android:id="@+id/img"
             android:src="@drawable/t4"
             android:layout_width="match_parent"
@@ -48,11 +49,18 @@
                 android:layout_height="wrap_content" />
         </FrameLayout>
     </FrameLayout>
+    <TextView
+        android:id="@+id/info"
+        android:paddingLeft="16dp"
+        android:text="找到了："
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:onClick="detect"
             android:text="识 别"
             android:id="@+id/detect"
             android:layout_width="wrap_content"

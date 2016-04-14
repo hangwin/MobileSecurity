@@ -5,14 +5,28 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.study.hang.mobileSecurity.R;
+import com.study.hang.util.FaceUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URI;
 
@@ -21,14 +35,75 @@ import java.net.URI;
  */
 public class FaceActivity extends Activity {
     private static final int PIC = 1;
+    private static final int SUCCESS = 2;
+    private static final int FAIL = 3;
     private Button load;
     private ImageView img;
+    private Bitmap bitmap;
+    private FrameLayout pb;
+    private TextView info;
+    private Paint paint;
+    private Handler handler=new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            
+            switch (msg.what){
+                case SUCCESS:
+                    JSONObject jsonObject= (JSONObject) msg.obj;
+                    getnewImage(jsonObject);
+                    img.setImageBitmap(bitmap);
+                    break;
+                case FAIL:
+                    break;
+            }
+        }
+    };
+
+    private void getnewImage(JSONObject jsonObject) {
+        Bitmap newbitmap=Bitmap.createBitmap(bitmap.getWidth(),bitmap.getHeight(),bitmap.getConfig());
+        Canvas canvas=new Canvas(newbitmap);
+        canvas.drawBitmap(bitmap,0,0,paint);
+        try {
+            JSONArray faces=jsonObject.getJSONArray("face");
+            info.setText("发现了"+faces.length()+"张脸");
+            for(int i=0;i<faces.length();i++) {
+                JSONObject face= (JSONObject) faces.get(i);
+                JSONObject position=face.getJSONObject("position");
+                JSONObject center=position.getJSONObject("center");
+                float x= (float) center.getDouble("x");
+                float y= (float) center.getDouble("y");
+                float width= (float) position.getDouble("width");
+                float height= (float) position.getDouble("height");
+                x=x/100*newbitmap.getWidth();
+                y=y/100*newbitmap.getHeight();
+                width=width/100*newbitmap.getWidth();
+                height=height/100*newbitmap.getHeight();
+                paint.setColor(Color.WHITE);
+                paint.setStrokeWidth(4);
+                canvas.drawLine(x -width/ 2, y-height / 2, x-width / 2, y-height / 2 + height, paint);
+                canvas.drawLine(x-width/2,y-height/2,x-width/2+width,y-height/2,paint);
+                canvas.drawLine(x-width/2+width,y-height/2,x-width/2+width,y-height/2+height,paint);
+                canvas.drawLine(x-width/2,y-height/2+height,x-width/2+width,y-height/2+height,paint);
+                bitmap=newbitmap;
+
+            }
+
+        } catch (JSONException e) {
+            info.setText("解析出错,请重试");
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.face);
         load= (Button) findViewById(R.id.load);
         img= (ImageView) findViewById(R.id.img);
+        pb= (FrameLayout) findViewById(R.id.pb);
+        info= (TextView) findViewById(R.id.info);
+        paint=new Paint();
     }
 
     public void loadImg(View view) {
@@ -36,6 +111,39 @@ public class FaceActivity extends Activity {
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent,PIC);
+    }
+
+    public void detect(View view) {
+        if (bitmap==null) {
+            Toast.makeText(this,"请先载入一张图片",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        pb.setVisibility(View.VISIBLE);
+        FaceUtil.detect(bitmap, new FaceUtil.CallBack() {
+            @Override
+            public void Success(JSONObject result) {
+                Message message = Message.obtain();
+                message.what = SUCCESS;
+                message.obj = result;
+                handler.sendMessage(message);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pb.setVisibility(View.GONE);
+                    }
+                });
+
+            }
+
+            @Override
+            public void Fail(String info) {
+                Message message=Message.obtain();
+                message.what=FAIL;
+                message.obj=info;
+                handler.sendMessage(message);
+            }
+        });
+
     }
 
     @Override
@@ -49,7 +157,8 @@ public class FaceActivity extends Activity {
                 int index=cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
                 String path=cursor.getString(index);
                 cursor.close();
-                img.setImageBitmap(resizePhoto(path));
+                bitmap=resizePhoto(path);
+                img.setImageBitmap(bitmap);
 
             }
         }
