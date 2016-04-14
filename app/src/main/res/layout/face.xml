@@ -40,11 +40,23 @@
             android:layout_height="wrap_content">
             <TextView
                 android:layout_gravity="center"
-                android:text="处理中..."
+                android:text="处理中"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <ProgressBar
                 android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+
+                android:visibility="invisible"
+                android:textColor="#ffff00ff"
+                android:gravity="center"
+                android:id="@+id/showinfo"
+                android:background="@drawable/hint"
+                android:drawableLeft="@drawable/female"
+                android:text="脸最大"
+                android:textSize="22sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </FrameLayout>
@@ -52,7 +64,7 @@
     <TextView
         android:id="@+id/info"
         android:paddingLeft="16dp"
-        android:text="找到了："
+        android:text=" "
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout
@@ -60,9 +72,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:layout_weight="1"
             android:onClick="detect"
             android:text="识 别"
             android:id="@+id/detect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_weight="1"
+            android:onClick="bigFace"
+            android:text="比比谁脸大"
+            android:id="@+id/bigface"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

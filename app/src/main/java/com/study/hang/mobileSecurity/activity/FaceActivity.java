@@ -37,12 +37,14 @@ public class FaceActivity extends Activity {
     private static final int PIC = 1;
     private static final int SUCCESS = 2;
     private static final int FAIL = 3;
+    private static final int BIFFACE = 4;
     private Button load;
     private ImageView img;
     private Bitmap bitmap;
     private FrameLayout pb;
     private TextView info;
     private Paint paint;
+
     private Handler handler=new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -51,16 +53,21 @@ public class FaceActivity extends Activity {
             switch (msg.what){
                 case SUCCESS:
                     JSONObject jsonObject= (JSONObject) msg.obj;
-                    getnewImage(jsonObject);
+                    getnewImage(jsonObject,false);
                     img.setImageBitmap(bitmap);
                     break;
                 case FAIL:
+                    break;
+                case BIFFACE:
+                    JSONObject json= (JSONObject) msg.obj;
+                    getnewImage(json,true);
+                    img.setImageBitmap(bitmap);
                     break;
             }
         }
     };
 
-    private void getnewImage(JSONObject jsonObject) {
+    private void getnewImage(JSONObject jsonObject,boolean bigface) {
         Bitmap newbitmap=Bitmap.createBitmap(bitmap.getWidth(),bitmap.getHeight(),bitmap.getConfig());
         Canvas canvas=new Canvas(newbitmap);
         canvas.drawBitmap(bitmap,0,0,paint);
@@ -81,10 +88,23 @@ public class FaceActivity extends Activity {
                 height=height/100*newbitmap.getHeight();
                 paint.setColor(Color.WHITE);
                 paint.setStrokeWidth(4);
-                canvas.drawLine(x -width/ 2, y-height / 2, x-width / 2, y-height / 2 + height, paint);
-                canvas.drawLine(x-width/2,y-height/2,x-width/2+width,y-height/2,paint);
+                canvas.drawLine(x - width / 2, y - height / 2, x - width / 2, y - height / 2 + height, paint);
+                canvas.drawLine(x - width / 2, y - height / 2, x - width / 2 + width, y - height / 2, paint);
                 canvas.drawLine(x-width/2+width,y-height/2,x-width/2+width,y-height/2+height,paint);
-                canvas.drawLine(x-width/2,y-height/2+height,x-width/2+width,y-height/2+height,paint);
+                canvas.drawLine(x - width / 2, y - height / 2 + height, x - width / 2 + width, y - height / 2 + height, paint);
+
+                String gender=face.getJSONObject("attribute").getJSONObject("gender").getString("value");
+                int age=face.getJSONObject("attribute").getJSONObject("age").getInt("value");
+                Bitmap ageBitmap=getAgeBitmap(age, gender,bigface);
+                int agewidth= ageBitmap.getWidth();
+                int ageHeight=ageBitmap.getHeight();
+                if(newbitmap.getWidth()<bitmap.getWidth()&&newbitmap.getHeight()<bitmap.getHeight()) {
+                    int radio=Math.max((int) newbitmap.getWidth()/bitmap.getWidth(),(int) bitmap.getHeight()/bitmap.getHeight());
+                    ageBitmap=Bitmap.createScaledBitmap(ageBitmap,agewidth*radio,ageHeight*radio,false);
+                    System.out.println("=========>in++++++++++");
+                }
+               // ageBitmap=Bitmap.createScaledBitmap(ageBitmap,(int) (agewidth*0.8),(int) (ageHeight*0.4),false);
+                canvas.drawBitmap(ageBitmap,x-agewidth/2,y-height/2-ageHeight,paint);
                 bitmap=newbitmap;
 
             }
@@ -93,6 +113,27 @@ public class FaceActivity extends Activity {
             info.setText("解析出错,请重试");
             e.printStackTrace();
         }
+    }
+
+    private Bitmap getAgeBitmap(int age, String gender,boolean bigface) {
+        TextView info= (TextView) pb.findViewById(R.id.showinfo);
+        if(bigface) {
+
+            info.setText("大");
+            this.info.setText("经过科学的计算，圈中的人脸最大");
+
+        }else {
+            info.setText(age + "");
+        }
+        if("Female".equals(gender)) {
+            info.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.female),null,null,null);
+        }else {
+            info.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.male),null,null,null);
+        }
+        info.setDrawingCacheEnabled(true);
+        Bitmap bitmap=Bitmap.createBitmap(info.getDrawingCache());
+        info.destroyDrawingCache();
+        return bitmap;
     }
 
     @Override
@@ -115,8 +156,7 @@ public class FaceActivity extends Activity {
 
     public void detect(View view) {
         if (bitmap==null) {
-            Toast.makeText(this,"请先载入一张图片",Toast.LENGTH_SHORT).show();
-            return;
+            bitmap=BitmapFactory.decodeResource(getResources(),R.drawable.t4);
         }
         pb.setVisibility(View.VISIBLE);
         FaceUtil.detect(bitmap, new FaceUtil.CallBack() {
@@ -137,13 +177,44 @@ public class FaceActivity extends Activity {
 
             @Override
             public void Fail(String info) {
-                Message message=Message.obtain();
-                message.what=FAIL;
-                message.obj=info;
+                Message message = Message.obtain();
+                message.what = FAIL;
+                message.obj = info;
                 handler.sendMessage(message);
             }
-        });
+        },false);
 
+    }
+
+    public void bigFace(View view) {
+        if (bitmap==null) {
+            bitmap=BitmapFactory.decodeResource(getResources(),R.drawable.t4);
+        }
+        pb.setVisibility(View.VISIBLE);
+        FaceUtil.detect(bitmap, new FaceUtil.CallBack() {
+            @Override
+            public void Success(JSONObject result) {
+                Message message = Message.obtain();
+                message.what = BIFFACE;
+                message.obj = result;
+                handler.sendMessage(message);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pb.setVisibility(View.GONE);
+                    }
+                });
+
+            }
+
+            @Override
+            public void Fail(String info) {
+                Message message = Message.obtain();
+                message.what = FAIL;
+                message.obj = info;
+                handler.sendMessage(message);
+            }
+        },true);
     }
 
     @Override
